@@ -1,0 +1,6 @@
+{
+  "appId": "com.example.premiumnotes",
+  "appName": "premium-notes",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

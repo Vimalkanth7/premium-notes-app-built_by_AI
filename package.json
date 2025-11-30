@@ -6,18 +6,28 @@
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder",
-    "pack": "electron-builder --dir"
+    "pack": "electron-builder --dir",
+    "build:web": "esbuild src/script.js --bundle --outfile=www/script.js --external:fs --external:path --external:electron",
+    "copy:assets": "copy index.html www\\index.html && copy style.css www\\style.css",
+    "build": "npm run build:web && npm run copy:assets"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "electron": "^28.0.0",
-    "electron-builder": "^23.6.0"
+    "electron-builder": "^23.6.0",
+    "esbuild": "^0.27.0"
   },
   "build": {
     "appId": "com.example.premiumnotes",
     "win": {
       "target": "nsis"
     }
+  },
+  "dependencies": {
+    "@capacitor/android": "^4.8.2",
+    "@capacitor/cli": "^4.8.2",
+    "@capacitor/core": "^4.8.2",
+    "@capacitor/filesystem": "^4.1.5"
   }
 }

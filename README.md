@@ -36,3 +36,21 @@ To create a Windows installer locally:
 npm run dist
 ```
 The installer will be generated in the `dist` folder.
+
+## For Mobile (Android)
+To build the Android application:
+
+1.  **Prerequisites**: Install [Android Studio](https://developer.android.com/studio).
+2.  **Sync Project**:
+    ```bash
+    npm run build
+    npx cap sync
+    ```
+3.  **Open in Android Studio**:
+    ```bash
+    npx cap open android
+    ```
+4.  **Run/Build**:
+    -   In Android Studio, wait for Gradle sync to finish.
+    -   Click the **Run** button (green triangle) to run on an emulator or connected device.
+    -   To build an APK: Go to **Build > Build Bundle(s) / APK(s) > Build APK(s)**.

@@ -13,7 +13,7 @@ function createWindow() {
         icon: path.join(__dirname, 'icon.png') // Optional: Add an icon later if desired
     });
 
-    win.loadFile('index.html');
+    win.loadFile('www/index.html');
 }
 
 app.whenReady().then(() => {
