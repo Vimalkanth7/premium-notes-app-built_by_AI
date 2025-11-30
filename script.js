@@ -6,7 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const addBtn = document.getElementById('add-btn');
     const notesList = document.getElementById('notes-list');
 
-    const DATA_FILE = path.join(__dirname, 'saved-notes');
+    const userDataPath = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share");
+    const dataDir = path.join(userDataPath, 'premium-notes-app');
+
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+    }
+
+    const DATA_FILE = path.join(dataDir, 'saved-notes.json');
 
     // Load notes from file
     loadNotes();
@@ -33,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.note-text').forEach(span => {
             notes.push(span.textContent); // Use textContent to get unescaped text
         });
-        
+
         // Reverse to save in chronological order (oldest first) if we are prepending in UI
         // But wait, the UI prepends (newest on top). 
         // If we save [newest, older, oldest], when we load, we should append them in that order?
@@ -43,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // createNoteElement(newest) -> list: [newest]
         // createNoteElement(older) -> list: [older, newest] (because of prepend)
         // So we need to save in reverse order (oldest to newest) so that when we load and prepend, they end up in the correct order (newest to oldest).
-        
+
         fs.writeFile(DATA_FILE, JSON.stringify(notes.reverse()), (err) => {
             if (err) console.error("Failed to save notes:", err);
         });
